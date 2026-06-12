@@ -1,0 +1,8 @@
+{
+  "runId": "sample-run-001",
+  "project": "example-project",
+  "results": [
+    { "testName": "homepage loads", "status": "passed", "durationMs": 123 },
+    { "testName": "login works", "status": "failed", "durationMs": 456, "errorMessage": "Element not found" }
+  ]
+}
