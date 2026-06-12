@@ -7,3 +7,5 @@
 
 ## Learnings
 
+- 2026-06-12: Added Playwright CI workflow, local run scripts, and a simple SQLite ingestion sample (branch: squad/backlog-setup-ci).
+

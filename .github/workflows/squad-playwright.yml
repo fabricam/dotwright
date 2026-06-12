@@ -1,0 +1,43 @@
+name: Squad Playwright CI
+
+on:
+  push:
+    branches: [ main, 'squad/**' ]
+  pull_request:
+
+jobs:
+  playwright:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        working-directory: tests/playwright
+        run: |
+          npm ci
+          npx playwright install --with-deps
+
+      - name: Run Playwright tests (JSON)
+        working-directory: tests/playwright
+        run: |
+          npx playwright test --reporter=json > ../../playwright-test-results.json
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Run ingestion sample
+        run: |
+          python tools/ingest_sample/ingest.py --input playwright-test-results.json --db ingestion.db
+
+      - name: Upload ingestion DB
+        uses: actions/upload-artifact@v4
+        with:
+          name: ingestion-db
+          path: ingestion.db
