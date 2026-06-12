@@ -1,3 +1,7 @@
 {
-  "version": 1
+  "version": 1,
+  "agent_concurrency": 8,
+  "updated_by": "Chris Martin",
+  "updated_at": "2026-06-12T13:17:14.862-04:00",
+  "notes": "Raised local concurrency ceiling per user request. Platform may still enforce lower limits."
 }
