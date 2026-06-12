@@ -1,10 +1,7 @@
 @page "/testrun/{id}"
 @using System.Text.Json
+@using Microsoft.AspNetCore.Components
 @inject HttpClient Http
-n@code {
-    [Parameter]
-    public string id { get; set; } = string.Empty;
-}
 
 <h3>Test Run Details: @id</h3>
 <p>This is a placeholder details view for a test run.</p>
@@ -14,6 +11,9 @@
 </div>
 
 @code {
+    [Parameter]
+    public string id { get; set; } = string.Empty;
+
     private string rawJson = "(loading)";
 
     protected override async Task OnInitializedAsync()
