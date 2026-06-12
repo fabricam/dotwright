@@ -7,3 +7,5 @@
 
 ## Learnings
 
+- 2026-06-12: Added Playwright tests (ingestion.spec.ts, dashboard.spec.ts), a runner (runner.js) that emits an ingestion-friendly JSON payload, and a README under tests/playwright. Changes committed on branch `squad/backlog-setup-tests`.
+
