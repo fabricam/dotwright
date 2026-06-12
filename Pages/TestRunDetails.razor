@@ -1,0 +1,31 @@
+@page "/testrun/{id}"
+@using System.Text.Json
+@inject HttpClient Http
+n@code {
+    [Parameter]
+    public string id { get; set; } = string.Empty;
+}
+
+<h3>Test Run Details: @id</h3>
+<p>This is a placeholder details view for a test run.</p>
+<div>
+    <h4>Summary</h4>
+    <pre>@rawJson</pre>
+</div>
+
+@code {
+    private string rawJson = "(loading)";
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var resp = await Http.GetStringAsync("sample-data/current-runs.json");
+            rawJson = resp;
+        }
+        catch (Exception ex)
+        {
+            rawJson = ex.Message;
+        }
+    }
+}

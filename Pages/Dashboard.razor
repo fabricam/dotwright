@@ -1,0 +1,18 @@
+@page "/dashboard"
+@inject HttpClient Http
+
+<h3>Playwright Dashboard</h3>
+<p>Overview of current test runs and trends (sample).</p>
+
+<div class="row">
+  <div class="col-6">
+    <h4>Current Runs</h4>
+    <img src="sample-data/placeholder.svg" alt="Current runs chart" style="max-width:100%" />
+    <p><a href="testrun/run-1">Open sample run run-1</a></p>
+  </div>
+  <div class="col-6">
+    <h4>Historical Trend</h4>
+    <img src="sample-data/placeholder.svg" alt="History chart" style="max-width:100%" />
+    <p>Sample data from <code>wwwroot/sample-data/history.json</code></p>
+  </div>
+</div>

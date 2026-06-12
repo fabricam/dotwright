@@ -1,0 +1,29 @@
+@page "/history"
+@inject HttpClient Http
+
+<h3>Test Run History</h3>
+<p>Historical test run data (sample).</p>
+<div>
+    <h4>Raw JSON</h4>
+    <pre>@(historyJson ?? "(loading)")</pre>
+</div>
+<div>
+    <h4>Placeholder chart</h4>
+    <img src="sample-data/placeholder.svg" alt="history chart" style="max-width:100%" />
+</div>
+
+@code {
+    private string? historyJson;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            historyJson = await Http.GetStringAsync("sample-data/history.json");
+        }
+        catch (Exception ex)
+        {
+            historyJson = ex.Message;
+        }
+    }
+}
