@@ -1,34 +1,266 @@
 ﻿@page "/"
+@using dotwright.Models
 
 <PageTitle>Dashboard</PageTitle>
 
 <h1>Dashboard</h1>
 
 <Accordion>
-    @for(var i = 0; i < 3; i++)
+    @foreach (var run in MockRuns)
     {
-        <AccordionItem Title="Test Run">
+        <AccordionItem Title="@($"{run.Config.Version} {run.Stats.StartTime:yyyy-MM-dd h:mm tt}")">
             <Content>
-                <div class="d-flex justify-content-between align-items-center w-100">
-                    <span>2024-06-01 5:04 p.m.</span>
+                @* Summary metrics row *@
+                <div class="d-flex justify-content-between align-items-center w-100 mb-3">
+                    <span class="text-muted small">
+                        Duration: <strong>@($"{run.Stats.Duration / 1000.0:F1}s")</strong>
+                        &nbsp;|&nbsp; Workers: <strong>@run.Config.Workers</strong>
+                        &nbsp;|&nbsp; Playwright <strong>@run.Config.Version</strong>
+                    </span>
                     <div class="d-flex align-items-center gap-4">
-                        <div class="metric-circle">
+                        <div class="metric-circle" title="Passed">
                             <Icon Name="IconName.CircleFill" Size="IconSize.x3" Color="IconColor.Success" />
-                            <span class="metric-circle-value">2</span>
+                            <span class="metric-circle-value">@run.Stats.Expected</span>
                         </div>
-                        <div class="metric-circle">
+                        <div class="metric-circle" title="Failed">
                             <Icon Name="IconName.CircleFill" Size="IconSize.x3" Color="IconColor.Danger" />
-                            <span class="metric-circle-value">3</span>
+                            <span class="metric-circle-value">@run.Stats.Unexpected</span>
                         </div>
-                        <div class="metric-circle">
+                        <div class="metric-circle" title="Skipped">
                             <Icon Name="IconName.CircleFill" Size="IconSize.x3" Color="IconColor.Warning" />
-                            <span class="metric-circle-value">3</span>
+                            <span class="metric-circle-value">@run.Stats.Skipped</span>
+                        </div>
+                        <div class="metric-circle" title="Flaky">
+                            <Icon Name="IconName.CircleFill" Size="IconSize.x3" Color="IconColor.Secondary" />
+                            <span class="metric-circle-value">@run.Stats.Flaky</span>
                         </div>
                     </div>
                 </div>
+
+                @* Projects row *@
+                <div class="d-flex gap-2 mb-3">
+                    @foreach (var project in run.Config.Projects)
+                    {
+                        <span class="badge bg-secondary">@project.Name</span>
+                    }
+                </div>
+
+                @* Spec results table *@
+                @foreach (var suite in run.Suites)
+                {
+                    <div class="mb-2">
+                        <div class="fw-semibold small text-muted mb-1">
+                            <Icon Name="IconName.FileEarmarkCode" Size="IconSize.None" />
+                            @suite.File
+                        </div>
+                        <table class="table table-sm table-hover mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Test</th>
+                                    <th>Browser</th>
+                                    <th>Status</th>
+                                    <th class="text-end">Duration</th>
+                                    <th class="text-end">Retries</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var spec in suite.Specs)
+                                {
+                                    @foreach (var test in spec.Tests)
+                                    {
+                                        @foreach (var result in test.Results)
+                                        {
+                                            <tr>
+                                                <td>@spec.Title <span class="text-muted small">L@(spec.Line)</span></td>
+                                                <td><span class="badge bg-light text-dark border">@test.ProjectName</span></td>
+                                                <td>
+                                                    @if (result.Status == "passed")
+                                                    {
+                                                        <Icon Name="IconName.CheckCircleFill" Color="IconColor.Success" />
+                                                        <span class="text-success ms-1 small">passed</span>
+                                                    }
+                                                    else if (result.Status == "failed")
+                                                    {
+                                                        <Icon Name="IconName.XCircleFill" Color="IconColor.Danger" />
+                                                        <span class="text-danger ms-1 small">failed</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <Icon Name="IconName.DashCircleFill" Color="IconColor.Warning" />
+                                                        <span class="text-warning ms-1 small">@result.Status</span>
+                                                    }
+                                                </td>
+                                                <td class="text-end small">@result.Duration ms</td>
+                                                <td class="text-end small">@result.Retry</td>
+                                            </tr>
+                                        }
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
             </Content>
         </AccordionItem>
     }
 </Accordion>
+
+@code {
+    private List<PlaywrightReport> MockRuns { get; } = new()
+    {
+        new PlaywrightReport
+        {
+            Config = new ReportConfig
+            {
+                Version = "1.60.0",
+                Workers = 8,
+                Projects = new()
+                {
+                    new ProjectConfig { Id = "chromium", Name = "chromium", Timeout = 30000, Retries = 0 },
+                    new ProjectConfig { Id = "firefox",  Name = "firefox",  Timeout = 30000, Retries = 0 },
+                    new ProjectConfig { Id = "webkit",   Name = "webkit",   Timeout = 30000, Retries = 0 },
+                }
+            },
+            Stats = new ReportStats
+            {
+                StartTime  = new DateTime(2026, 6, 13, 3, 54, 29, DateTimeKind.Utc),
+                Duration   = 1088.93,
+                Expected   = 2,
+                Skipped    = 0,
+                Unexpected = 0,
+                Flaky      = 0,
+            },
+            Suites = new()
+            {
+                new Suite
+                {
+                    Title = "example.spec.js",
+                    File  = "example.spec.js",
+                    Specs = new()
+                    {
+                        new Spec
+                        {
+                            Title = "has title",
+                            Ok    = true,
+                            File  = "example.spec.js",
+                            Line  = 4,
+                            Tests = new()
+                            {
+                                new Test
+                                {
+                                    ProjectName    = "chromium",
+                                    ExpectedStatus = "passed",
+                                    Status         = "expected",
+                                    Results = new()
+                                    {
+                                        new TestResult { Status = "passed", Duration = 359, Retry = 0,
+                                            StartTime = new DateTime(2026, 6, 13, 3, 54, 29, 665, DateTimeKind.Utc) }
+                                    }
+                                }
+                            }
+                        },
+                        new Spec
+                        {
+                            Title = "get started link",
+                            Ok    = true,
+                            File  = "example.spec.js",
+                            Line  = 11,
+                            Tests = new()
+                            {
+                                new Test
+                                {
+                                    ProjectName    = "chromium",
+                                    ExpectedStatus = "passed",
+                                    Status         = "expected",
+                                    Results = new()
+                                    {
+                                        new TestResult { Status = "passed", Duration = 438, Retry = 0,
+                                            StartTime = new DateTime(2026, 6, 13, 3, 54, 29, 666, DateTimeKind.Utc) }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        new PlaywrightReport
+        {
+            Config = new ReportConfig
+            {
+                Version = "1.60.0",
+                Workers = 8,
+                Projects = new()
+                {
+                    new ProjectConfig { Id = "chromium", Name = "chromium", Timeout = 30000, Retries = 0 },
+                    new ProjectConfig { Id = "firefox",  Name = "firefox",  Timeout = 30000, Retries = 0 },
+                }
+            },
+            Stats = new ReportStats
+            {
+                StartTime  = new DateTime(2026, 6, 12, 14, 22, 10, DateTimeKind.Utc),
+                Duration   = 2310.5,
+                Expected   = 3,
+                Skipped    = 1,
+                Unexpected = 1,
+                Flaky      = 0,
+            },
+            Suites = new()
+            {
+                new Suite
+                {
+                    Title = "example.spec.js",
+                    File  = "example.spec.js",
+                    Specs = new()
+                    {
+                        new Spec
+                        {
+                            Title = "has title",
+                            Ok    = true,
+                            File  = "example.spec.js",
+                            Line  = 4,
+                            Tests = new()
+                            {
+                                new Test
+                                {
+                                    ProjectName    = "chromium",
+                                    ExpectedStatus = "passed",
+                                    Status         = "expected",
+                                    Results = new()
+                                    {
+                                        new TestResult { Status = "passed", Duration = 412, Retry = 0,
+                                            StartTime = new DateTime(2026, 6, 12, 14, 22, 10, DateTimeKind.Utc) }
+                                    }
+                                }
+                            }
+                        },
+                        new Spec
+                        {
+                            Title = "get started link",
+                            Ok    = false,
+                            File  = "example.spec.js",
+                            Line  = 11,
+                            Tests = new()
+                            {
+                                new Test
+                                {
+                                    ProjectName    = "firefox",
+                                    ExpectedStatus = "passed",
+                                    Status         = "unexpected",
+                                    Results = new()
+                                    {
+                                        new TestResult { Status = "failed", Duration = 1200, Retry = 1,
+                                            StartTime = new DateTime(2026, 6, 12, 14, 22, 11, DateTimeKind.Utc),
+                                            Errors = new() { "TimeoutError: waiting for locator" } }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    };
+}
 
 
