@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Dotwright.Playwright.Services;
 
-namespace Microsoft.Extensions.DependencyInjection;
+namespace Dotwright.Playwright;
 
 public static class PlaywrightReportingServiceCollectionExtensions
 {

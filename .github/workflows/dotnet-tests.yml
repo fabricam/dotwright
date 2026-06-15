@@ -21,3 +21,12 @@ jobs:
         run: dotnet build --no-restore --configuration Release
       - name: Test
         run: dotnet test --no-build --configuration Release --verbosity normal
+      - name: Pack Dotwright.Playwright Library
+        run: dotnet pack src/Dotwright.Playwright/Dotwright.Playwright.csproj -c Release --no-build
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      - name: Publish to GitHub Packages
+        run: |
+          dotnet nuget add source --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/fabricam/index.json"
+          dotnet nuget push "src/Dotwright.Playwright/bin/Release/*.nupkg" --source github --skip-duplicate
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
