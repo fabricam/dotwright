@@ -4,5 +4,16 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>Dotwright.Playwright</RootNamespace>
+
+    <!-- NuGet Package Properties -->
+    <PackageId>Fabricam.Dotwright.Playwright</PackageId>
+    <Version>0.1.0</Version>
+    <Authors>Chris Martin</Authors>
+    <Description>Playwright test report models and utilities for parsing Playwright JSON reports.</Description>
+    <RepositoryUrl>https://github.com/fabricam/dotwright</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/fabricam/dotwright</PackageProjectUrl>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 </Project>
