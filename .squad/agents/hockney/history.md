@@ -23,3 +23,19 @@
 
 **Key Learning:** Full test coverage ensures reader resilience; CI integration prevents regressions.
 
+### Session: Add Settings Tests (2026-06-15)
+**Task:** Add backend integration and frontend Playwright tests for Settings UI/API feature.
+
+**Outcome:**
+- Created tests/Dotwright.Settings.Tests xUnit project with SettingsApiIntegrationTests
+  - Tests POST to /api/settings/filepath; verifies file storage at data/settings.json
+  - Tests GET to /api/settings/filepath; verifies persisted value retrieval
+  - Uses TestHost for in-memory hosting; temp file for isolation
+- Created tests/playwright/tests/settings.spec.ts browser test
+  - Navigates to /settings page, fills filepath input, clicks Save
+  - Validates localStorage entry `dotwright.playwrightReportPath`
+- Verified: dotnet test passes (1/1); Playwright test ready (requires BASE_URL + npm install)
+- **Branch:** squad/add-settings-tests
+
+**Key Learning:** Full-stack testing (API integration + browser) ensures Settings feature works end-to-end; xUnit + TestHost enables fast backend validation without external host required.
+

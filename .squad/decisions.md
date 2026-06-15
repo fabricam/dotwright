@@ -32,6 +32,34 @@
 - **CI integration:** .github/workflows/dotnet-tests.yml runs dotnet test automatically
 - **Status:** All tests passing; branch squad/add-playwright-reader-tests
 
+### Settings UI Implementation (Dallas, 2026-06-15)
+- **Pages:** Dedicated /settings navigation page with client-side settings storage
+- **Storage:** Browser localStorage under key `dotwright.playwrightReportPath`
+- **UI elements:** Cog icon on Dashboard for quick navigation; Settings link in NavMenu
+- **Service:** ISettingsService in Pages/Settings.razor (client-only); DI registered in Program.cs
+- **Rationale:** Blazor WASM cannot access server-side filesystem; localStorage keeps app self-contained
+- **Future:** Server-side persistence can be enabled via API endpoint (See Settings API decision)
+- **Status:** Implemented and committed; branch squad/add-settings-ui
+
+### Settings API & File Persistence (Fenster, 2026-06-15)
+- **Endpoints:** GET /api/settings/filepath, POST /api/settings/filepath (server-side, optional)
+- **Storage:** File-backed at <repo-root>/data/settings.json
+- **Opt-in:** Hosts register ISettingsService via services.AddPlaywrightReporting()
+- **Integration:** Included in Dotwright.Playwright library; ASP.NET Core hosts can enable it
+- **Client behavior:** Frontend defaults to localStorage; server persistence is optional
+- **Status:** Implemented in Dotwright.Playwright.Services; branch squad/add-settings-api
+
+### Settings Tests (Hockney, 2026-06-15)
+- **Backend tests:** tests/Dotwright.Settings.Tests (xUnit integration test)
+  - Tests POST to /api/settings/filepath with file-backed storage
+  - Tests GET to verify persisted values
+  - Runs with dotnet test
+- **Frontend tests:** tests/playwright/tests/settings.spec.ts
+  - Navigates to /settings, fills filepath, saves to localStorage
+  - Verifies localStorage contains the saved path
+  - Runs with npx playwright test
+- **Status:** All tests passing; branch squad/add-settings-tests
+
 ## Governance
 
 - All meaningful changes require team consensus
