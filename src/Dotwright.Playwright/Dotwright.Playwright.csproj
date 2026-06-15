@@ -18,6 +18,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+<<<<<<< HEAD
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.0" />
+=======
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.0" />
+>>>>>>> squad/add-playwright-reader-tests
   </ItemGroup>
 </Project>
