@@ -1,9 +1,18 @@
 ﻿@page "/"
 @using Dotwright.Playwright.Models
+@using Dotwright.Services
+@inject ISettingsService SettingsService
+@inject NavigationManager NavigationManager
 
 <PageTitle>Dashboard</PageTitle>
 
-<h1>Dashboard</h1>
+<div class="d-flex justify-content-between align-items-center">
+    <h1>Dashboard</h1>
+    <button class="btn btn-link" title="Settings" @onclick="OpenSettings">
+        <span class="bi bi-gear-fill" aria-hidden="true"></span>
+    </button>
+</div>
+<small class="text-muted">@(_configuredPath ?? "Report path not configured")</small>
 
 <Accordion>
     @foreach (var run in MockRuns)
@@ -106,6 +115,14 @@
 </Accordion>
 
 @code {
+    private string? _configuredPath;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _configuredPath = await SettingsService.GetPlaywrightReportPathAsync();
+    }
+
+    private void OpenSettings() => NavigationManager.NavigateTo("/settings");
     private List<PlaywrightReport> MockRuns { get; } = new()
     {
         new PlaywrightReport
