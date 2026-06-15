@@ -12,8 +12,8 @@ public static class PlaywrightReportingServiceCollectionExtensions
     public static IServiceCollection AddPlaywrightReporting(this IServiceCollection services)
     {
         services.AddSingleton<IPlaywrightReportReader, PlaywrightReportReader>();
-        // Optional server-side settings persistence. Hosts may register the service to enable file-backed storage at "<repoRoot>/data/settings.json".
-        services.AddSingleton<ISettingsService, FileSettingsService>();
+        // Note: server-side file-backed settings (ISettingsService/FileSettingsService) were removed from this library.
+        // Hosts that require server-backed persistence can register their own ISettingsService implementation manually.
         return services;
     }
 }

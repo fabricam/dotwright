@@ -107,6 +107,8 @@ var json = await File.ReadAllTextAsync("playwright-report.json");
 var report = reader.FromJson(json);
 ```
 
+Note: The optional server-side settings API (ISettingsService, FileSettingsService, SettingsController) was removed from the Fabricam.Dotwright.Playwright library; settings are now a client-side string stored in localStorage by default. Hosts that need server-backed persistence can register their own ISettingsService implementation. See branch: https://github.com/fabricam/dotwright/tree/squad/remove-settings-api for details.
+
 ## Versioning
 
 Update the version in `src/Dotwright.Playwright/Dotwright.Playwright.csproj` before creating a release:
