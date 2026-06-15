@@ -109,6 +109,18 @@ var report = reader.FromJson(json);
 
 Note: The optional server-side settings API (ISettingsService, FileSettingsService, SettingsController) was removed from the Fabricam.Dotwright.Playwright library; settings are now a client-side string stored in localStorage by default. Hosts that need server-backed persistence can register their own ISettingsService implementation. See branch: https://github.com/fabricam/dotwright/tree/squad/remove-settings-api for details.
 
+
+## Cloud storage support
+
+This library can read Playwright JSON stored in cloud providers (S3, Azure Blob Storage, Google Cloud Storage) using URI-based inputs (s3://bucket/key, gs://bucket/object, https://<account>.blob.core.windows.net/container/blob or https://storage.googleapis.com/...).
+
+The cloud providers rely on the respective SDKs and runtime credentials. If you intend to use cloud URIs, ensure your host application references the following packages and provides credentials/permissions in the runtime environment:
+
+- AWSSDK.S3 (Amazon S3) - credentials resolved via the AWS SDK default chain (environment, shared credentials file, IAM role)
+- Azure.Storage.Blobs (Azure Blob Storage) - supports SAS/URL or AZURE_STORAGE_CONNECTION_STRING for azure:// scheme
+- Google.Cloud.Storage.V1 (GCS) - credentials via GOOGLE_APPLICATION_CREDENTIALS or environment
+
+Providers are registered by AddPlaywrightReporting(), but will throw an IOException at runtime if the SDK is not available or credentials are insufficient. Consider adding integration tests and CI secrets if you plan to validate end-to-end uploads/downloads in CI.
 ## Versioning
 
 Update the version in `src/Dotwright.Playwright/Dotwright.Playwright.csproj` before creating a release:

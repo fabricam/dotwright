@@ -11,6 +11,14 @@ public static class PlaywrightReportingServiceCollectionExtensions
     /// </summary>
     public static IServiceCollection AddPlaywrightReporting(this IServiceCollection services)
     {
+        // Register cloud providers (optional). Hosts that do not reference cloud SDKs may ignore these; providers will throw
+        // IOException at runtime if SDKs are unavailable. See PACKAGING.md for packaging notes.
+        services.AddTransient<AwsS3CloudStorageProvider>();
+        services.AddTransient<AzureBlobCloudStorageProvider>();
+        services.AddTransient<GoogleCloudStorageProvider>();
+
+        services.AddSingleton<CloudStorageProviderResolver>();
+
         services.AddSingleton<IPlaywrightReportReader, PlaywrightReportReader>();
         // Note: server-side file-backed settings (ISettingsService/FileSettingsService) were removed from this library.
         // Hosts that require server-backed persistence can register their own ISettingsService implementation manually.
