@@ -23,4 +23,8 @@
     <PackageReference Include="Azure.Storage.Blobs" Version="12.14.0" />
     <PackageReference Include="Google.Cloud.Storage.V1" Version="3.10.0" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="artifacts/**/*.cs" />
+  </ItemGroup>
 </Project>

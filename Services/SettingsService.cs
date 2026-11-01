@@ -12,7 +12,8 @@ namespace Dotwright.Services
 
         public async Task<string?> GetPlaywrightReportPathAsync()
         {
-            return await _js.InvokeAsync<string?>("localStorage.getItem", Key);
+            var result = await _js.InvokeAsync<string?>("localStorage.getItem", Key);
+            return result;
         }
 
         public async Task SetPlaywrightReportPathAsync(string path)

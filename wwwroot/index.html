@@ -30,6 +30,22 @@
         <a href="." class="reload">Reload</a>
         <span class="dismiss">🗙</span>
     </div>
+    <script>
+        window.dotwrightTheme = {
+            getTheme: function () {
+                return localStorage.getItem("dotwright.theme") || "light";
+            },
+            setTheme: function (theme) {
+                document.documentElement.setAttribute("data-bs-theme", theme);
+                localStorage.setItem("dotwright.theme", theme);
+            }
+        };
+
+        document.documentElement.setAttribute(
+            "data-bs-theme",
+            localStorage.getItem("dotwright.theme") || "light"
+        );
+    </script>
     <script src="lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="_content/Blazor.Bootstrap/blazor.bootstrap.js"></script>
     <script src="_framework/blazor.webassembly#[.{fingerprint}].js"></script>

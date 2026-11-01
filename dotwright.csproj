@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="src/**/*.cs;tests/**/*.cs" />
+    <Compile Remove="src/**/*.cs;tests/**/*.cs;artifacts/**/*.cs" />
   </ItemGroup>
 
   <ItemGroup>

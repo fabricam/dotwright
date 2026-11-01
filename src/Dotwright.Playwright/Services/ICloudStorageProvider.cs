@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -15,5 +16,11 @@ namespace Dotwright.Playwright.Services
         /// Open a read stream for the given cloud URI.
         /// </summary>
         Task<Stream> OpenReadAsync(Uri uri, CancellationToken ct = default);
+
+        /// <summary>
+        /// List JSON file URIs for the given cloud path or prefix.
+        /// When a single JSON object URI is supplied, implementations may return a one-item list.
+        /// </summary>
+        Task<IReadOnlyList<Uri>> ListFilesAsync(Uri uri, CancellationToken ct = default);
     }
 }

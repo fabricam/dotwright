@@ -89,6 +89,33 @@ public class PlaywrightReportReaderTests
         File.Delete(file);
     }
 
+      [Fact]
+      public async Task FromPathAsync_Reads_All_Json_Files_In_Directory()
+      {
+        var dir = Path.Combine(Directory.GetCurrentDirectory(), "playwright-test-data-multi");
+        Directory.CreateDirectory(dir);
+
+        var file1 = Path.Combine(dir, "report-1.json");
+        var file2 = Path.Combine(dir, "report-2.json");
+        var file3 = Path.Combine(dir, "ignore.txt");
+
+        await File.WriteAllTextAsync(file1, SampleJson);
+        await File.WriteAllTextAsync(file2, SampleJson.Replace("2026-06-15T12:00:00Z", "2026-06-16T12:00:00Z"));
+        await File.WriteAllTextAsync(file3, "not json");
+
+        var reports = await PlaywrightReportReader.FromPathAsync(dir);
+
+        Assert.Equal(2, reports.Count);
+        Assert.All(reports, item => Assert.NotNull(item.Report));
+        Assert.Contains(reports, item => item.SourcePath.EndsWith("report-1.json", StringComparison.OrdinalIgnoreCase));
+        Assert.Contains(reports, item => item.SourcePath.EndsWith("report-2.json", StringComparison.OrdinalIgnoreCase));
+
+        File.Delete(file1);
+        File.Delete(file2);
+        File.Delete(file3);
+        Directory.Delete(dir);
+      }
+
     [Fact]
     public void TryParse_Returns_Error_For_Invalid_Json()
     {
