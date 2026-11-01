@@ -435,3 +435,8 @@ FodyWeavers.xsd
 .squad/.scratch/
 # Squad: SubSquad activation file (local to this machine)
 .squad-workstream
+
+# Allow committing orchestration logs and decisions (Scribe will commit these)
+!.squad/orchestration-log/
+!.squad/log/
+!.squad/decisions/inbox/
