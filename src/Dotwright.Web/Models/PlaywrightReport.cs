@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace dotwright.Models;
+namespace Dotwright.Web.Models;
 
 public class PlaywrightReport
 {

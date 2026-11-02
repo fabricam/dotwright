@@ -1,8 +1,8 @@
 ﻿@page "/"
 @using System.IO
 @using System.Linq
-@using dotwright.Models
-@using Dotwright.Services
+@using Dotwright.Web.Models
+@using Dotwright.Web.Services
 @inject ISettingsService SettingsService
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JS
@@ -145,7 +145,7 @@
         {
             try
             {
-                _runs = (await dotwright.Services.PlaywrightReportReader.FromPathAsync(_configuredPath)).ToList();
+                _runs = (await PlaywrightReportReader.FromPathAsync(_configuredPath)).ToList();
             }
             catch (Exception ex)
             {

@@ -1,8 +1,8 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
-using dotwright.Models;
-using dotwright.Services;
+using Dotwright.Web.Models;
+using Dotwright.Web.Services;
 using Xunit;
 
 namespace Dotwright.Playwright.Tests;

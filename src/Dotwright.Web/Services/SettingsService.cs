@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.JSInterop;
 
-namespace Dotwright.Services
+namespace Dotwright.Web.Services
 {
     public class SettingsService : ISettingsService
     {

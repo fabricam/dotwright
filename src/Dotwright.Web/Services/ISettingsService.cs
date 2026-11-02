@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace Dotwright.Services
+namespace Dotwright.Web.Services
 {
     public interface ISettingsService
     {

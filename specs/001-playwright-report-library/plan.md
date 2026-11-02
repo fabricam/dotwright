@@ -47,7 +47,7 @@ Packages.
 | Namespaces | `Dotwright.Playwright`, models in `Dotwright.Playwright.Models` | Separates models from services |
 | Reader lifetime | Singleton | Stateless; only holds `JsonSerializerOptions` |
 | Registration | `AddPlaywrightReporting()` in `PlaywrightReportingServiceCollectionExtensions` | One-line adoption |
-| Server-only file I/O | Documented in XML docs and `Program.cs` comments | WASM cannot read the host filesystem |
+| Server-only file I/O | Documented in XML docs and `src/Dotwright.Web/Program.cs` comments | WASM cannot read the host filesystem |
 | Package ID / version | `Fabricam.Dotwright.Playwright` / `0.1.0` | Pre-1.0 while the API settles |
 | Publishing | GitHub Packages on `main` push, `--skip-duplicate` | No extra secrets needed |
 
@@ -77,7 +77,7 @@ tests/Dotwright.Playwright.Tests/
 └── PlaywrightReportReaderTests.cs
 
 .github/workflows/dotnet-tests.yml     # build, test, pack, publish
-PACKAGING.md, GITHUB_PACKAGES_SETUP.md
+docs/PACKAGING.md, docs/GITHUB_PACKAGES_SETUP.md
 ```
 
 **Structure Decision**: One library under `src/` and one matching test project under `tests/`.
@@ -87,4 +87,4 @@ The Blazor host references the library as a project reference.
 
 | Violation | Why Needed | Simpler Alternative Rejected Because |
 |-----------|------------|-------------------------------------|
-| Host app has its own static `dotwright.Services.PlaywrightReportReader` and `dotwright.Models` copies | Directory and cloud-prefix loading (`FromPathAsync`) was added in the host first | Known duplication. Consolidating into the library is tracked in tasks.md (T012) |
+| Host app has its own static `Dotwright.Web.Services.PlaywrightReportReader` and `Dotwright.Web.Models` copies | Directory and cloud-prefix loading (`FromPathAsync`) was added in the host first | Known duplication. Consolidating into the library is tracked in tasks.md (T012) |

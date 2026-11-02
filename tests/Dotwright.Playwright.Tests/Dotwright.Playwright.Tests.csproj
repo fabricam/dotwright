@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\dotwright.csproj" />
+    <ProjectReference Include="..\..\src\Dotwright.Web\Dotwright.Web.csproj" />
   </ItemGroup>
 
 </Project>

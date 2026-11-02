@@ -7,9 +7,9 @@ using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using Dotwright.Playwright.Services;
-using dotwright.Models;
+using Dotwright.Web.Models;
 
-namespace dotwright.Services;
+namespace Dotwright.Web.Services;
 
 public static class PlaywrightReportReader
 {

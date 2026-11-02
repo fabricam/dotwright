@@ -9,7 +9,7 @@
 A Blazor WASM page at `/` that reads the configured report path from `ISettingsService`, loads
 runs through `PlaywrightReportReader.FromPathAsync`, and renders them with Blazor.Bootstrap
 `Accordion` components. Theme switching uses a small JS helper (`window.dotwrightTheme`) in
-`wwwroot/index.html`.
+`src/Dotwright.Web/wwwroot/index.html`.
 
 ## Technical Context
 
@@ -53,17 +53,19 @@ specs/002-report-dashboard/
 ### Source Code (repository root)
 
 ```text
-Pages/Home.razor            # dashboard, mock data, theme toggle
-Layout/MainLayout.razor
-Models/PlaywrightReportSource.cs
-wwwroot/index.html          # dotwrightTheme JS helper, pre-render theme apply
-wwwroot/css/app.css         # metric-circle styles
+src/Dotwright.Web/
+├── Pages/Home.razor            # dashboard, mock data, theme toggle
+├── Layout/MainLayout.razor
+├── Models/PlaywrightReportSource.cs
+└── wwwroot/
+    ├── index.html              # dotwrightTheme JS helper, pre-render theme apply
+    └── css/app.css             # metric-circle styles
 ```
 
-**Structure Decision**: Standard Blazor WASM layout at the repository root.
+**Structure Decision**: Standard Blazor WASM layout in the `src/Dotwright.Web` project.
 
 ## Complexity Tracking
 
 | Violation | Why Needed | Simpler Alternative Rejected Because |
 |-----------|------------|-------------------------------------|
-| Sample data hard-coded in `Pages/Home.razor` | Gives first-run users a preview | Acceptable for now; could move to `wwwroot/sample-data/` later |
+| Sample data hard-coded in `src/Dotwright.Web/Pages/Home.razor` | Gives first-run users a preview | Acceptable for now; could move to `src/Dotwright.Web/wwwroot/sample-data/` later |

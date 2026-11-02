@@ -70,7 +70,7 @@ src/Dotwright.Playwright/Services/
     ├── AzureBlobCloudStorageProvider.cs
     ├── AwsS3CloudStorageProvider.cs
     └── GoogleCloudStorageProvider.cs
-Services/PlaywrightReportReader.cs   # host FromPathAsync / FromCloudPathAsync
+src/Dotwright.Web/Services/PlaywrightReportReader.cs   # host FromPathAsync / FromCloudPathAsync
 ```
 
 **Structure Decision**: Providers live in the library. Host-side orchestration moves into the

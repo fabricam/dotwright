@@ -14,11 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="src/**/*.cs;tests/**/*.cs;artifacts/**/*.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="src\Dotwright.Playwright\Dotwright.Playwright.csproj" />
+    <ProjectReference Include="..\Dotwright.Playwright\Dotwright.Playwright.csproj" />
   </ItemGroup>
 
 </Project>

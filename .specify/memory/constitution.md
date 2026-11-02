@@ -61,7 +61,7 @@ Complexity Tracking table.
 - Dependency lock files MUST be committed (e.g., `package-lock.json` for Playwright tests), and
   CI MUST install with locked commands (`npm ci`, `dotnet restore`).
 - The NuGet package follows Semantic Versioning (MAJOR.MINOR.PATCH). Breaking public API changes
-  require a MAJOR bump (or MINOR while < 1.0.0) and a note in `PACKAGING.md`.
+  require a MAJOR bump (or MINOR while < 1.0.0) and a note in `docs/PACKAGING.md`.
 - Packages are published to GitHub Packages only from `main`, using the built-in `GITHUB_TOKEN`.
   No long-lived secrets in the repository.
 

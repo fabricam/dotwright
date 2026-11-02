@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using dotwright;
+using Dotwright.Web;
 using Microsoft.Extensions.DependencyInjection; // for AddPlaywrightReporting extension when registered server-side
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
@@ -18,7 +18,7 @@ builder.Services.AddBlazorBootstrap();
 
 
 // Settings stored in browser localStorage (WASM). Service registered here for DI.
-builder.Services.AddScoped<Dotwright.Services.ISettingsService, Dotwright.Services.SettingsService>();
+builder.Services.AddScoped<Dotwright.Web.Services.ISettingsService, Dotwright.Web.Services.SettingsService>();
 
 // NOTE: Playwright report reader performs filesystem I/O and is intended for server-side hosting.
 // If you have a server host (ASP.NET Core) register the service there with:

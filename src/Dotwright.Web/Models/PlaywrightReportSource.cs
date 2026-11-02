@@ -1,4 +1,4 @@
-namespace dotwright.Models;
+namespace Dotwright.Web.Models;
 
 public class PlaywrightReportSource
 {

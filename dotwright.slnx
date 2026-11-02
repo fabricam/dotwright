@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Dotwright.Playwright/Dotwright.Playwright.csproj" />
+    <Project Path="src/Dotwright.Web/Dotwright.Web.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Dotwright.Playwright.Tests/Dotwright.Playwright.Tests.csproj" />
+    <Project Path="tests/Dotwright.Settings.Tests/Dotwright.Settings.Tests.csproj" />
+  </Folder>
+</Solution>

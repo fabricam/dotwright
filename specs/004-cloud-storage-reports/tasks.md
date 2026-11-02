@@ -23,7 +23,7 @@ description: "Task list for Cloud Storage Report Sources (back-filled)"
 ## Phase 2: User Story 1 - Azure Blob (P1) 🎯 MVP
 
 - [x] T005 [US1] Implement `AzureBlobCloudStorageProvider` (HTTP GET, HTTP listing, `azure://` via connection string)
-- [x] T006 [US1] Add `FromPathAsync` / `FromCloudPathAsync` with the default-file-name fallback in `Services/PlaywrightReportReader.cs`
+- [x] T006 [US1] Add `FromPathAsync` / `FromCloudPathAsync` with the default-file-name fallback in `src/Dotwright.Web/Services/PlaywrightReportReader.cs`
 
 ## Phase 3: User Story 2 - S3 (P2)
 
@@ -36,7 +36,7 @@ description: "Task list for Cloud Storage Report Sources (back-filled)"
 ## Phase 5: User Story 4 - Extensibility (P3)
 
 - [x] T009 [US4] Add `FromUriAsync` to the library `PlaywrightReportReader`
-- [x] T010 [US4] Document cloud support in `PACKAGING.md`
+- [x] T010 [US4] Document cloud support in `docs/PACKAGING.md`
 
 ## Phase 6: Open Follow-ups
 

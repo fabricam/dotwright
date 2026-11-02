@@ -60,10 +60,11 @@ specs/003-report-path-settings/
 ### Source Code (repository root)
 
 ```text
-Pages/Settings.razor
-Services/ISettingsService.cs
-Services/SettingsService.cs
-Program.cs                              # DI registration
+src/Dotwright.Web/
+├── Pages/Settings.razor
+├── Services/ISettingsService.cs
+├── Services/SettingsService.cs
+└── Program.cs                          # DI registration
 tests/playwright/tests/settings.spec.ts
 tests/Dotwright.Settings.Tests/         # obsolete; see T009
 ```

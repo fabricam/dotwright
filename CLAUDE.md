@@ -23,10 +23,28 @@ Specs for shipped features (001–004) were back-filled from project history. Th
 files list open follow-ups. `specs/005-test-run-history` is a draft that still needs clarifying
 and planning.
 
+## Repository layout
+
+```text
+dotwright.slnx                  # solution: all app, library, and test projects
+src/
+├── Dotwright.Web/              # Blazor WASM dashboard (namespace: Dotwright.Web)
+│   ├── Pages/ Layout/ Services/ Models/ wwwroot/
+│   └── Program.cs
+└── Dotwright.Playwright/       # report parsing library (NuGet: Fabricam.Dotwright.Playwright)
+tests/
+├── Dotwright.Playwright.Tests/ # xUnit
+├── Dotwright.Settings.Tests/   # xUnit
+└── playwright/                 # Playwright browser tests
+docs/                           # packaging and publishing guides
+specs/                          # Spec Kit feature specs
+.specify/                       # Spec Kit constitution, templates, scripts
+```
+
 ## Build and test
 
 ```powershell
 dotnet build
-dotnet test tests/Dotwright.Playwright.Tests   # no solution file yet, so root `dotnet test` runs nothing
-dotnet run --project dotwright.csproj          # WASM dev server
+dotnet test
+dotnet run --project src/Dotwright.Web   # WASM dev server
 ```
