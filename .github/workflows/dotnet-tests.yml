@@ -2,7 +2,7 @@ name: .NET Tests
 
 on:
   push:
-    branches: [ main, squad/add-playwright-reader-tests ]
+    branches: [ main ]
   pull_request:
     branches: [ main ]
 
